@@ -136,7 +136,10 @@ func doInsert(ctx context.Context, ent Entity, db DB) (int64, error) {
 	}
 
 	lastID, err := result.LastInsertId()
-	return lastID, fmt.Errorf("get last insert id, %w", err)
+	if err != nil{
+		return 0, fmt.Errorf("get last insert id, %w", err)
+	}
+	return lastID, nil
 }
 
 func doUpdate(ctx context.Context, ent Entity, db DB) error {
